@@ -2,6 +2,7 @@ package com.example.fariahuq.tori;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RadioGroup;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -16,7 +17,7 @@ import java.util.List;
 public class ProductivityTracking extends AppCompatActivity {
 
     float acitivityscale[] = {14f , 28f , 63f , 70f};
-    String activityname[] = {"Coding" , "Social Network" , "Personal Space" , "Academic Work"};
+    String activityname[] = {"Coding" , "Others" , "Personal Space" , "Academic Work"};
 
     float acitivityscalemonth[] = {30f , 180f , 270f , 240f};
 
@@ -29,10 +30,14 @@ public class ProductivityTracking extends AppCompatActivity {
     PieDataSet pieDataSet;
     PieData pieData;
     PieChart pieChart;
+    float timeactive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getIntent().getExtras();
+        timeactive = bundle.getFloat("data");
+        Log.i("Running",String.valueOf(timeactive));
         setContentView(R.layout.activity_productivity_tracking);
         option = (RadioGroup)findViewById(R.id.option);
         pieChart = (PieChart)findViewById(R.id.chart);
@@ -84,6 +89,7 @@ public class ProductivityTracking extends AppCompatActivity {
             //pieEntriesday.add(new PieEntry(acitivityscaleday[i], activityname[i]));
         }
 
+        pieEntries.add(new PieEntry(timeactive, "Social Media"));
         pieDataSet = new PieDataSet(pieEntries,"");
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieData = new PieData(pieDataSet);

@@ -1,9 +1,11 @@
 package com.example.fariahuq.tori;
 
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,12 +23,13 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class HomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
+    float timeactive = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,26 @@ public class HomeScreen extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> services = activityManager.getRunningServices(Integer.MAX_VALUE);
+
+        long currentMillis = Calendar.getInstance().getTimeInMillis();
+        Calendar cal = Calendar.getInstance();
+
+
+        for (ActivityManager.RunningServiceInfo info : services) {
+            cal.setTimeInMillis(currentMillis-info.activeSince);
+
+            if(info.process.contains("facebook")) {
+                timeactive += info.activeSince;
+                Log.i("Running", String.format("Process %s with component %s has been running since %s (%d milliseconds)",
+                        info.process, info.service.getClassName(), cal.getTime().toString(), info.activeSince));
+            }
+        }
+        Log.i("Running",String.valueOf(timeactive));
+        timeactive = timeactive/(float)(1000*60*60);
+        Log.i("Running",String.valueOf(timeactive));
     }
 
 
@@ -88,6 +111,7 @@ public class HomeScreen extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
             Intent intent = new Intent(this,ProductivityTracking.class);
+            intent.putExtra("data",timeactive);
             startActivity(intent);
         } else if (id == R.id.nav_gallery) {
             drawer.closeDrawer(GravityCompat.START);
