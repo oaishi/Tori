@@ -6,4 +6,6 @@
     <color name="White">#FFFFFF</color>
     <color name="Black">#000000</color>
     <color name="Gold">#FFD700</color>
+    <color name="ChatBackground">#7DC242</color>
+    <color name="Chatcolor">#E52B50</color>
 </resources>
