@@ -84,7 +84,7 @@ public class ProductivityTracking extends AppCompatActivity {
             //pieEntriesday.add(new PieEntry(acitivityscaleday[i], activityname[i]));
         }
 
-        pieDataSet = new PieDataSet(pieEntries,"Demo");
+        pieDataSet = new PieDataSet(pieEntries,"");
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieData = new PieData(pieDataSet);
 
