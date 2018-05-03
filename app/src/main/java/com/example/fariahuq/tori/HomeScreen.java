@@ -2,6 +2,7 @@ package com.example.fariahuq.tori;
 
 import android.app.ActivityManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -63,9 +64,16 @@ public class HomeScreen extends AppCompatActivity
                         info.process, info.service.getClassName(), cal.getTime().toString(), info.activeSince));
             }
         }
-        Log.i("Running",String.valueOf(timeactive));
-        timeactive = timeactive/(float)(1000*60*60);
-        Log.i("Running",String.valueOf(timeactive));
+        boolean mboolean = false;
+        SharedPreferences settings = getSharedPreferences("com.example.fariahuq.tori", 0);
+        mboolean = settings.getBoolean("FIRST_RUN", false);
+        if (!mboolean) {
+            //SharedPreferences.Editor editor = settings.edit();
+            //editor.putBoolean("FIRST_RUN", true);
+            //editor.commit();
+            Intent intent = new Intent(this,Demo.class);
+            startActivity(intent);
+        }
     }
 
 

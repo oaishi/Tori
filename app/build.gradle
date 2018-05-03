@@ -29,7 +29,7 @@ dependencies {
 }
 
 dependencies {
-    compile 'com.github.bassaer:chatmessageview:1.10.0'
+    implementation 'com.github.bassaer:chatmessageview:1.10.0'
 }
 
 dependencies {
