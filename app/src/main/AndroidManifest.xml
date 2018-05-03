@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProductivityTracking"></activity>
+        <activity android:name=".ProductivityTracking" />
+        <activity android:name=".Demo"></activity>
     </application>
 
 </manifest>

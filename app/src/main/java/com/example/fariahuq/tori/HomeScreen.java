@@ -116,7 +116,8 @@ public class HomeScreen extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
             drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_slideshow) {
-            drawer.closeDrawer(GravityCompat.START);
+            Intent intent = new Intent(this,Demo.class);
+            startActivity(intent);
         } else if (id == R.id.nav_manage) {
             drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_share) {

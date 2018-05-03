@@ -29,7 +29,15 @@ dependencies {
 }
 
 dependencies {
+    compile 'com.github.bassaer:chatmessageview:1.10.0'
+}
+
+dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+}
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
 }
 
 dependencies {
