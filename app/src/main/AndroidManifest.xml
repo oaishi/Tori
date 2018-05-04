@@ -20,7 +20,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProductivityTracking" />
-        <activity android:name=".Demo"></activity>
+        <activity android:name=".Demo" />
+        <activity android:name=".PreDataCollection" />
+        <activity android:name=".SentimentTracking"></activity>
     </application>
 
 </manifest>

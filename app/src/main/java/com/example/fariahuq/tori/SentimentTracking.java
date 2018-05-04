@@ -1,47 +1,31 @@
 package com.example.fariahuq.tori;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioGroup;
 
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductivityTracking extends AppCompatActivity {
+public class SentimentTracking extends AppCompatActivity {
 
-    float acitivityscale[] = {14f , 28f , 63f , 70f};
-    String activityname[] = {"Coding" , "Others" , "Personal Space" , "Academic Work"};
 
-    float acitivityscalemonth[] = {30f , 180f , 270f , 240f};
-
-    float acitivityscaleday[] = {2f , 9f , 8f , 5f};
-
-    List<PieEntry> pieEntries;
-    //List<PieEntry> pieEntriesmonth;
-    //List<PieEntry> pieEntriesday;
+    List<BarEntry> entries = new ArrayList<>();
     RadioGroup option;
-    PieDataSet pieDataSet;
-    PieData pieData;
-    PieChart pieChart;
-    float timeactive;
+    BarChart barChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().setTitle("Emotion Tracking");
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("Productivity Tracking");
-        Bundle bundle = getIntent().getExtras();
-        timeactive = bundle.getFloat("data");
-        Log.i("Running",String.valueOf(timeactive));
-        setContentView(R.layout.activity_productivity_tracking);
+        setContentView(R.layout.activity_sentiment_tracking);
         option = (RadioGroup)findViewById(R.id.option);
-        pieChart = (PieChart)findViewById(R.id.chart);
+        barChart = (BarChart)findViewById(R.id.linechart);
         setUpPieChart();
         option.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -80,25 +64,21 @@ public class ProductivityTracking extends AppCompatActivity {
     }
 
     private void setUpPieChart() {
-        pieEntries = new ArrayList<>();
-      //  pieEntriesmonth = new ArrayList<>();
-        //pieEntriesday = new ArrayList<>();
-        for(int i = 0; i< acitivityscale.length; i++)
-        {
-            pieEntries.add(new PieEntry(acitivityscale[i], activityname[i]));
-            //pieEntriesmonth.add(new PieEntry(acitivityscalemonth[i], activityname[i]));
-            //pieEntriesday.add(new PieEntry(acitivityscaleday[i], activityname[i]));
-        }
+        entries.add(new BarEntry(0f, 9f));
+        entries.add(new BarEntry(1f, 6f));
+        entries.add(new BarEntry(2f, 10f));
+        entries.add(new BarEntry(3f, 5f));
+        // gap of 2f
+        entries.add(new BarEntry(5f, 2f));
+        entries.add(new BarEntry(6f, 4f));
 
-        pieEntries.add(new PieEntry(timeactive, "Social Media"));
-        pieDataSet = new PieDataSet(pieEntries,"");
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieData = new PieData(pieDataSet);
+        entries.add(new BarEntry(7f, 4f));
 
-        pieChart.setData(pieData);
-        pieChart.setCenterText("Time Spent On Activities");
-        pieChart.invalidate();
-        // pieChart.animate().rotationX(360);
-
+        BarDataSet set = new BarDataSet(entries, "Emotion tracking");
+        BarData data = new BarData(set);
+        data.setBarWidth(0.9f); // set custom bar width
+        barChart.setData(data);
+        barChart.setFitBars(true); // make the x-axis fit exactly all bars
+        barChart.invalidate(); // refresh
     }
 }
