@@ -1,9 +1,16 @@
 package com.example.fariahuq.tori;
 
 import android.app.ActivityManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,14 +20,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 public class HomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     float timeactive = 0;
+    private NotificationManager nm;
+    int alarmMsgId = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +46,15 @@ public class HomeScreen extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        ImageView imageView = (ImageView)findViewById(R.id.quote);
+        int sendDelay = (new Random().nextInt(3) + 1);
+        if(sendDelay==1)
+        imageView.setImageDrawable(getResources().getDrawable(R.drawable.images1));
+        else if(sendDelay==2)
+            imageView.setImageDrawable(getResources().getDrawable(R.drawable.images2));
+        else if(sendDelay==3)
+            imageView.setImageDrawable(getResources().getDrawable(R.drawable.images3));
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -64,6 +85,50 @@ public class HomeScreen extends AppCompatActivity
             Intent intent = new Intent(this,PreDataCollection.class);
             startActivity(intent);
         }
+
+
+        nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        Intent notify = new Intent(this, Tracker.class);
+        PendingIntent pi = PendingIntent.getActivity(this, (int)alarmMsgId, notify, 0);
+
+        //@formatter:off
+        Notification status = new NotificationCompat.Builder(this)
+                .setContentTitle("Do you want to track your activities?")
+                .setContentText("Tori")
+                .setSmallIcon(R.drawable.tori)
+                .setContentIntent(pi)
+                .setAutoCancel(true)
+                .setOngoing(true)
+                .setDefaults(Notification.DEFAULT_LIGHTS)
+                .build();
+        //@formatter:on
+
+        // Send the notification using the alarm id to easily identify the
+        // correct notification.
+        nm.notify((int)alarmMsgId, status);
+
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        alertDialogBuilder.setMessage("Do You Want To Chat With me ?")
+                .setCancelable(true).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // FIRE ZE MISSILES!
+                Intent intent = new Intent(getApplicationContext(),Demo.class);
+                startActivity(intent);
+            }
+        })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
     }
 
 
@@ -118,7 +183,8 @@ public class HomeScreen extends AppCompatActivity
             Intent intent = new Intent(this,Demo.class);
             startActivity(intent);
         } else if (id == R.id.nav_manage) {
-            drawer.closeDrawer(GravityCompat.START);
+            Intent intent = new Intent(this,Tracker.class);
+            startActivity(intent);
         } else if (id == R.id.nav_share) {
             drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_send) {

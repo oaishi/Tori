@@ -38,6 +38,7 @@ public class ProductivityTracking extends AppCompatActivity {
         getSupportActionBar().setTitle("Productivity Tracking");
         Bundle bundle = getIntent().getExtras();
         timeactive = bundle.getFloat("data");
+        timeactive = timeactive/(float)(60*60*1000);
         Log.i("Running",String.valueOf(timeactive));
         setContentView(R.layout.activity_productivity_tracking);
         option = (RadioGroup)findViewById(R.id.option);

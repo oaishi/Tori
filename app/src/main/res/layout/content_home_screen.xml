@@ -9,4 +9,10 @@
     tools:showIn="@layout/app_bar_home_screen">
 
 
+    <ImageView
+        android:id="@+id/quote"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription=""
+        app:srcCompat="@drawable/images4" />
 </android.support.constraint.ConstraintLayout>

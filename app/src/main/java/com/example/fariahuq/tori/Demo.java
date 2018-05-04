@@ -59,7 +59,7 @@ public class Demo extends AppCompatActivity {
         final Message receivedMessage = new Message.Builder()
                 .setUser(you)
                 .setRight(false)
-                .setText("Hi , Do you want to chat?")
+                .setText("Hi")
                 .build();
         mChatView.receive(receivedMessage);
 

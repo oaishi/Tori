@@ -2,10 +2,10 @@
 <resources>
     <color name="colorPrimary">#FFD700</color>
     <color name="colorPrimaryDark">#FFA500</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff4081</color>
     <color name="White">#FFFFFF</color>
     <color name="Black">#000000</color>
     <color name="Gold">#FFD700</color>
-    <color name="ChatBackground">#7DC242</color>
+    <color name="ChatBackground">#7dc242</color>
     <color name="Chatcolor">#E52B50</color>
 </resources>

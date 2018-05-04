@@ -22,7 +22,9 @@
         <activity android:name=".ProductivityTracking" />
         <activity android:name=".Demo" />
         <activity android:name=".PreDataCollection" />
-        <activity android:name=".SentimentTracking"></activity>
+        <activity android:name=".SentimentTracking" />
+        <activity android:name=".Tracker" >
+        </activity>
     </application>
 
 </manifest>
